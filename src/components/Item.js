@@ -18,7 +18,7 @@ export class Item extends Component {
     return {
       color: '#fff',
       backgroundColor: '#333',
-      borderBottom: '1px solid #ccc',
+      borderBottom: '1px dashed #ccc',
       padding: '10px',
       // HOLY SHIT thats smart
       textDecoration:
