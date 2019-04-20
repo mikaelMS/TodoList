@@ -26,14 +26,30 @@ export class Item extends Component {
     };
   };
 
-  markComplete = () => {};
+  // Component drilling (State in App.js, can't say this.set.state)
+  // Climb the ladder through props (Item -> Todos -> App.js)
+  //  Make Methods inside our props
+  // markComplete = e => {
+  //   console.log(this.props);
+  // };
 
   render() {
+    // Pulls only id/title from prop todo
+    // Now we dont have to write this.props.todo.id every time
+    const { id, title } = this.props.todo;
+
     return (
       <div style={this.getStyle()}>
         <p>
-          <input type='checkbox' onChange={this.markComplete} />
-          {this.props.todo.title}
+          <input
+            type='checkbox'
+            style={checkboxStyle}
+            onChange={this.props.markComplete.bind(this, id)}
+          />
+          {title}
+          <button onClick={this.props.delTodo.bind(this, id)} style={btnStyle}>
+            X
+          </button>
         </p>
       </div>
     );
@@ -48,7 +64,16 @@ Item.propTypes = {
 export default Item;
 
 // Important, because style is in an object
-const itemStyle = {
+const checkboxStyle = {
+  marginRight: '6px'
+};
+
+const btnStyle = {
+  background: '#ff0000',
   color: '#fff',
-  backgroundColor: '#333'
+  border: 'none',
+  padding: '5px 8px',
+  borderRadius: '50%',
+  cursor: 'pointer',
+  float: 'right'
 };

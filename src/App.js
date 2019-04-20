@@ -13,7 +13,7 @@ class App extends Component {
       {
         id: 2,
         title: 'Phone her',
-        completed: true
+        completed: false
       },
       {
         id: 3,
@@ -23,12 +23,41 @@ class App extends Component {
     ]
   };
 
+  // Toggle Complete with map method
+  markComplete = id => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      })
+    });
+  };
+
+  // Delete todo with filter method
+  delTodo = id => {
+    this.setState({
+      todos: this.state.todos.filter(todo => {
+        if (todo.id === id) {
+          return false; // false = not in new array
+        } else {
+          return true; // true = in new array
+        }
+      })
+    });
+  };
+
   render() {
     console.log(this.state.todos);
     return (
       <div className='App'>
         <h1>My React App</h1>
-        <Todos todos={this.state.todos} />
+        <Todos
+          todos={this.state.todos}
+          markComplete={this.markComplete}
+          delTodo={this.delTodo}
+        />
       </div>
     );
   }
